@@ -24,7 +24,6 @@ export async function getPosts() {
       const filePath = path.join(postsPath, filename);
       let file;
       if (fs.statSync(filePath).isDirectory()) {
-        console.log({ filePath: path.join(postsPath, filename, "index.md") });
         file = await fsPromises.readFile(
           path.join(postsPath, filename, "index.md")
         );

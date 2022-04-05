@@ -10,12 +10,16 @@ export async function getPost(slug: string) {
   const filepath = path.join(postsPath, slug + ".md");
   const folderPath = path.join(postsPath, slug);
   let file;
-  if (fs.statSync(folderPath).isDirectory()) {
-    console.log({ filePath: path.join(folderPath, "index.md") });
+  if (fs.existsSync(filepath)) {
+    file = await fsPromises.readFile(filepath);
+  } else if (fs.existsSync(folderPath)) {
     file = await fsPromises.readFile(path.join(folderPath, "index.md"));
   } else {
-    // is an md file
-    file = await fsPromises.readFile(filepath);
+    return {
+      slug: 404,
+      title: "Not Found",
+      html: "404 not found",
+    };
   }
   const { attributes, body } = parseFrontMatter(file.toString());
   invariant(
