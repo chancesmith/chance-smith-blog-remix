@@ -26,5 +26,14 @@ export async function getPost(slug: string) {
     isValidPostAttributes(attributes),
     `Post ${filepath} is missing attributes`
   );
-  return { slug, title: attributes.title, html: marked(body) };
+  const puclicImagePath = "/posts/" + slug + "/";
+  const regex = /\(.\//gi;
+  return {
+    slug,
+    title: attributes.title,
+    html: marked(body.replace(regex, "(" + puclicImagePath), {
+      baseUrl: puclicImagePath,
+      headerIds: true,
+    }),
+  };
 }

@@ -6,4 +6,3 @@ tags: project management, sodium halogen, agile
 ---
 
 I hope this works.
-![feature boxing sketch](./feature-boxing/feature-boxing.png)
